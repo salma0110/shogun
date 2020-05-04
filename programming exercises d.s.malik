@@ -1,0 +1,62 @@
+/*Write a program that calculates and prints the monthly paycheck for an
+employee. The net pay is calculated after taking the following deductions:
+Federal Income Tax: 15%
+State Tax: 3.5%
+Social Security Tax: 5.75%
+Medicare/Medicaid Tax: 2.75%
+Pension Plan: 5%
+Health Insurance: $75.00
+Your program should prompt the user to input the gross amount and the
+employee name. The output will be stored in a file. Format your output to
+have two decimal places. A sample output follows:
+Bill Robinson
+Gross Amount: ............ $3575.00
+Federal Tax: ............. $ 536.25
+State Tax: ............... $ 125.13Social Security Tax: ..... $ 205.56
+Medicare/Medicaid Tax: ... $ 98.31
+Pension Plan: ............ $ 178.75
+Health Insurance: ........ $ 75.00
+Net Pay: ................. $2356.00
+Note that the first column is left-justified, and the right column is rightjustified.*/
+the answar:
+#include <iostream>
+#include<fstream>
+#include<string>
+#include<iomanip>
+
+using namespace std;
+const float State = 0.035;
+const float Social =.0575;
+const float Med = .0275;
+const float Plan = .05;
+const float Health = 75.00;
+const float Fedral = .015;
+int main()
+{
+    string name ;
+    double gross,net,n ;
+    ifstream infile;
+    ofstream outfile;
+    cout<<"enter your name "<<"then Gross Amount"<<" sperated by space"<<endl;
+    infile.open("tax.txt");
+    getline(infile,name);
+    infile>>gross;
+    outfile.open("outdata.txt");
+    outfile<<setprecision(2)<<fixed<<endl;
+    outfile<<name<<endl;
+    outfile<<left<<setw(24)<<setfill('.')<<"gross amount:"<<right<<"$"<<gross<<endl;
+    outfile<<left<<setw(24)<<setfill('.')<<"Federal Tax"<<right<<"$"<<gross*Fedral<<endl;
+    outfile<<left<<setw(24)<<setfill('.')<<"State Tax"<<right<<"$"<<gross*State<<endl;
+outfile<<left<<setw(24)<<setfill('.')<<"Social Security Tax:"<<right<<"$"<<gross*Social<<endl;
+    outfile<<left<<setw(24)<<setfill('.')<<"Medicare/Medicaid Tax"<<right<<"$"<<gross*Med<<endl;
+    outfile<<left<<setw(24)<<setfill('.')<<"Health Insurance:"<<right<<"$"<<Health<<endl;
+    outfile<<left<<setw(24)<<setfill('.')<<"Pension Plan:"<<right<<"$"<<gross*Plan<<endl;
+    n=gross*Plan+Health+gross*Med+gross*Social+gross*State+gross*Fedral;
+    net=gross-n;
+    outfile<<"Net Pay:"<<left<<setw(24)<<setfill('.')<<right<<net<<"$"<<endl;
+    infile.close();
+    outfile.close();
+
+
+    return 0;
+}
